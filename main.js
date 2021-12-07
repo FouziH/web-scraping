@@ -10,11 +10,20 @@ const app = express()
 const getScraping = async() => {
 
     try {
-        const response = await axios('https://www.theguardian.com/uk')
+        const response = await axios('https://www.cnn.com/')
         const $ = cheerio.load(response.data)
-        $('.fc-item__title', html).each(() =>{
-            $(this).text()
+        const articles = [];
+        $('.cd cd--card cd--article cd--idx-0 cd--large cd--vertical cd--has-siblings cd--has-media cd--media__image cd--has-banner', html).each(() =>{
+          const title =   $(this).text()
+          const url =  $(this).find('a').attr('href')
+
+          articles.push({
+              title, 
+              url
+          })
         })
+
+        console.log('length is',articles.length)
         
         
     } catch (error) {
