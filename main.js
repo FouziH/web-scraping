@@ -13,17 +13,19 @@ const getScraping = async() => {
         const response = await axios('https://www.cnn.com/')
         const $ = cheerio.load(response.data)
         const articles = [];
-        $('.cd cd--card cd--article cd--idx-0 cd--large cd--vertical cd--has-siblings cd--has-media cd--media__image cd--has-banner', html).each(() =>{
+        $('.cd', html).each(() =>{
           const title =   $(this).text()
           const url =  $(this).find('a').attr('href')
+          const h2 = $(this).attr('h2')
 
           articles.push({
               title, 
-              url
+              url, 
+              h2
           })
         })
 
-        console.log('length is',articles.length)
+        console.log('length is',articles)
         
         
     } catch (error) {
